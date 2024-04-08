@@ -14,6 +14,7 @@ public class Principal {
         System.out.println("La mama provee "+Ma.alimento);
         Mama.Bebe bb=Ma.new Bebe();
         System.out.println("Su bebe tiene un peso "+bb.peso+"Kg");
+        System.out.println("Cambios en Mama hijo");
         
     }
     
