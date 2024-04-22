@@ -18,8 +18,8 @@ public class ClienteService {
 
     List<Cliente> listaCli = new ArrayList<>();
 
-    public boolean saveEntidad(Cliente categoria) {
-        return this.listaCli.add(categoria);
+    public boolean saveEntidad(Cliente cliente) {//buscar
+        return this.listaCli.add(cliente);
     }
 
     public List<Cliente> listarEntidad() {
@@ -44,7 +44,7 @@ public class ClienteService {
         return buscarCliente(clientex.getDniruc());
     }
 
-    public void deleteRegistEntdad(String dato) {
+    public void deleteRegistEntdad(String dato) {//delete
         this.listaCli.remove(listaCli.stream()
                 .filter(cliente -> cliente.getDniruc().equals(dato))
                 .findFirst().orElse(null));

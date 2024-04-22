@@ -4,8 +4,11 @@
  */
 package pe.edu.upeu.syscenterlife.gui;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -94,7 +97,7 @@ public class MainCliente extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtDatoBuscar = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
@@ -120,6 +123,12 @@ public class MainCliente extends javax.swing.JPanel {
 
         jLabel5.setText("Dato a buscar");
 
+        txtDatoBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDatoBuscarKeyTyped(evt);
+            }
+        });
+
         jLabel6.setText("Exportar");
 
         jTextField6.setText("PDF");
@@ -135,7 +144,7 @@ public class MainCliente extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDatoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +169,7 @@ public class MainCliente extends javax.swing.JPanel {
                             .addComponent(jLabel6))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDatoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -388,7 +397,7 @@ public class MainCliente extends javax.swing.JPanel {
             }
         } else {
             try {
-                if (JOptionPane.showConfirmDialog(this, "Esta seguro de crear unnuevo cliente ?", "Mensaje de confirmación ", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE) == 0) {
+                if (JOptionPane.showConfirmDialog(this, "Esta seguro de crear un nuevo cliente ?", "Mensaje de confirmación ", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE) == 0) {
                     if (clienteService.saveEntidad(to) != false) {
                         modelo = (DefaultTableModel) jTable1.getModel();
                         Object nuevo[] = {modelo.getRowCount() + 1, to.getDniruc(),
@@ -414,6 +423,25 @@ public class MainCliente extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDnirucActionPerformed
 
+    private void txtDatoBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDatoBuscarKeyTyped
+        // TODO add your handling code here:
+        txtDatoBuscar.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String cadena = (txtDatoBuscar.getText());
+                System.out.println("v:" + cadena);
+                txtDatoBuscar.setText(cadena);
+                repaint();
+                trsfiltro.setRowFilter(RowFilter.regexFilter(txtDatoBuscar.getText())
+                );
+            }
+        });
+        System.out.println("llego");
+        trsfiltro = new TableRowSorter<>(jTable1.getModel());
+        jTable1.setRowSorter(trsfiltro);
+
+    }//GEN-LAST:event_txtDatoBuscarKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
@@ -433,8 +461,8 @@ public class MainCliente extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField txtDatoBuscar;
     private javax.swing.JTextField txtDniruc;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
