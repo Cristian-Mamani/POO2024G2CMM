@@ -40,4 +40,9 @@ public class ClienteService {
     return clienteRepository.findById(dniruc).get();
 
 }
+     //buscar
+    public List<Cliente> buscarClienteNombre (String nombre){
+    return clienteRepository.findByNombre("%"+nombre+"%");
+
+}
 }
